@@ -1,5 +1,5 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import './index.sass'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import './index.css'
 
 const SQRT2 = 2 ** 0.5 // 根号2
 
