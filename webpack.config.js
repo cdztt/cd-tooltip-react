@@ -9,7 +9,6 @@ module.exports = {
         library: {
             type: 'umd'
         },
-        clean: true
     },
     externals: {
         react: 'react'

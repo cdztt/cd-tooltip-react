@@ -127,9 +127,9 @@ export default function Tooltip({
             contentStyle = style.contentStyle
         }
     })()
+
     // 获取当前tooltip的尺寸，注意使用useLayoutEffect，在render之后commit（browser paint）之前
     useLayoutEffect(() => {
-    //useEffect(() => {
         if (isShow) {
             const { width, height } = tooltipRef.current.getBoundingClientRect()
             setTipWidth(width)
