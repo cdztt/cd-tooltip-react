@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './index.css'
 
 const SQRT2 = 2 ** 0.5 // 根号2
@@ -107,7 +107,7 @@ export default function Tooltip({
     let placement = {}
     let arrowStyle = {}
     let contentStyle = {}
-    ;(function setCss() {
+    ;(function changeCss() {
         if (tooltipRef.current && isShow) {
             const parent = tooltipRef.current.parentNode.getBoundingClientRect()
             const viewHeight = document.body.clientHeight
