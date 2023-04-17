@@ -1,9 +1,11 @@
 {
   "name": "@cdztt/tooltip-react",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack watch",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",

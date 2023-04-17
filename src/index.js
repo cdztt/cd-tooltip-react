@@ -170,6 +170,9 @@ export default function Tooltip({
                 fontSize: size + 'rem',
                 width
             }}
+            onClick={(e) => {
+                e.stopPropagation()
+            }}
         >
             {
                 isShow &&
