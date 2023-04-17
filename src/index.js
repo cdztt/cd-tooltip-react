@@ -96,7 +96,8 @@ export default function Tooltip({
     place = 'top',
     size = 1,
     width = 'max-content',
-    arrowSize = 8
+    arrowSize = 8,
+    delay = 0.2
 }) {
     const tooltipRef = useRef()
 
@@ -141,11 +142,15 @@ export default function Tooltip({
     useEffect(() => {
         const parent = tooltipRef.current.parentNode
 
+        let timerId
         function handlePointerEnter() {
+            clearTimeout(timerId)
             setIsShow(true)
         }
         function handlePointerLeave() {
-            setIsShow(false)
+            timerId = setTimeout(() => {
+                setIsShow(false)
+            }, delay * 1000)
         }
 
         parent.addEventListener('pointerenter', handlePointerEnter)
@@ -155,7 +160,7 @@ export default function Tooltip({
             parent.removeEventListener('pointerenter', handlePointerEnter)
             parent.removeEventListener('pointerleave', handlePointerLeave)
         }
-    }, [])
+    }, [delay])
 
     return (
         <div ref={tooltipRef}
