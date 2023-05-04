@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './index.css'
 
 const SQRT2 = 2 ** 0.5 // 根号2
@@ -91,13 +91,12 @@ function getStyle(tipWidth, tipHeight, place, arrowSize) {
     return { arrowStyle, contentStyle }
 }
 
-export default function Tooltip({
+function Tooltip({
     children,
     place = 'top',
     size = 1,
     width = 'max-content',
     arrowSize = 8,
-    delay = 0.2
 }) {
     const tooltipRef = useRef()
 
@@ -129,8 +128,7 @@ export default function Tooltip({
         }
     })()
 
-    // 获取当前tooltip的尺寸，注意使用useLayoutEffect，在render之后commit（browser paint）之前
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (isShow) {
             const { width, height } = tooltipRef.current.getBoundingClientRect()
             setTipWidth(width)
@@ -142,15 +140,11 @@ export default function Tooltip({
     useEffect(() => {
         const parent = tooltipRef.current.parentNode
 
-        let timerId
         function handlePointerEnter() {
-            clearTimeout(timerId)
             setIsShow(true)
         }
         function handlePointerLeave() {
-            timerId = setTimeout(() => {
-                setIsShow(false)
-            }, delay * 1000)
+            setIsShow(false)
         }
 
         parent.addEventListener('pointerenter', handlePointerEnter)
@@ -160,7 +154,7 @@ export default function Tooltip({
             parent.removeEventListener('pointerenter', handlePointerEnter)
             parent.removeEventListener('pointerleave', handlePointerLeave)
         }
-    }, [delay])
+    }, [])
 
     return (
         <div ref={tooltipRef}
@@ -194,4 +188,18 @@ export default function Tooltip({
             }
         </div>
     )
+}
+
+export default function TooltipWrapper(props) {
+    const [showChild, setShowChild] = useState(false)
+
+    useEffect(() => {
+        setShowChild(true)
+    }, [])
+
+    if (!showChild) {
+        return null
+    }
+
+    return <Tooltip {...props} />
 }

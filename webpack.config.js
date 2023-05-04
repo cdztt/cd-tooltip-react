@@ -9,6 +9,7 @@ module.exports = {
         library: {
             type: 'umd'
         },
+        globalObject: 'this'
     },
     externals: {
         react: 'react'
