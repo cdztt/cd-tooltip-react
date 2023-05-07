@@ -21,15 +21,15 @@ function Link() {
 }
 ```
 
-1. API
+* API
 
 Parameters:
-| Parameters  | Properties | Type       | Units   |
-| ----------- | ---------- | ---------- | ------- |
-|             | children   | React Node |         |
-|             | place      | String     |         |
-|             | size       | Number     | rem     |
-|             | arrowSize  | Number     | px      |
+| Parameters  | Properties | Type       | Units   | Default   |
+| ----------- | ---------- | ---------- | ------- | --------- |
+|             | children   | React Node |         | undefined |
+|             | place      | String     |         | 'top'     |
+|             | size       | Number     | rem     | 1         |
+|             | arrowSize  | Number     | px      | 8         |
 
 Properties:
 | place       | Value          |
