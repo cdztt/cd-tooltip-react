@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import './index.css'
 
-const SQRT2 = 2 ** 0.5 // 根号2
+const SQRT2 = Math.SQRT2 // 根号2
 
+enum Place {
+    top,
+    bottom,
+
+}
 // 计算tip放置位置的left，top值
 function getPlacement({ row0, row1, row2, col0, col1, col2 }, place) {
     const placement = {}

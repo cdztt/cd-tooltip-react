@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
     mode: 'production',
-    entry: './src/index.js',
+    entry: './js/index.jsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
@@ -14,10 +14,15 @@ module.exports = {
     externals: {
         react: 'react'
     },
+    resolve: {
+        alias: {
+            './index.css': '../src/index.css'
+        }
+    },
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.jsx?$/,
                 loader: 'babel-loader',
                 options: {
                     presets: [
