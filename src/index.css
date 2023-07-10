@@ -2,7 +2,8 @@
     position: fixed;
 }
 .tooltip-content {
-    color: white;
+    color: red;
+    /*color: white;*/
     border-radius: 4px;
     background-color: rgba(0, 0, 0, 0.8);
     -webkit-user-select: text;
