@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './index.css';
-const SQRT2 = Math.SQRT2; // 根号2
+const SQRT2 = Math.SQRT2;
 // 计算tip放置位置的left，top值
 function getPlacement({ row0, row1, row2, col0, col1, col2 }, place) {
     const positionStyle = {};
@@ -95,25 +95,26 @@ function Tooltip({ children, place = 'top', size = 1, width = 'max-content', arr
     let positionStyle = {};
     let arrowStyle = {};
     let contentStyle = {};
-    (function changeCss() {
-        if (tooltipRef.current !== null
-            && tooltipRef.current.parentNode !== null
-            && isShow) {
+    function changeCss() {
+        if (tooltipRef.current !== null &&
+            tooltipRef.current.parentNode !== null &&
+            isShow) {
             const parent = tooltipRef.current.parentNode.getBoundingClientRect();
-            const viewHeight = document.body.clientHeight;
-            const viewWidth = document.body.clientWidth;
-            const row0 = Math.max(parent.top - tipHeight + arrowSize - arrowSize / SQRT2, 0) + 'px';
+            const viewHeight = window.screen.height;
+            const viewWidth = window.screen.width;
+            const row0 = Math.max(parent.top - tipHeight + arrowSize - arrowSize / SQRT2, 0) +
+                'px';
             const row1 = parent.top + (parent.height - tipHeight + arrowSize) / 2 + 'px';
-            const row2 = Math.min(parent.bottom + arrowSize / SQRT2, viewHeight - tipHeight) + 'px';
+            const row2 = Math.min(parent.bottom + arrowSize / SQRT2, viewHeight - tipHeight) +
+                'px';
             const col0 = Math.max(parent.left - tipWidth - arrowSize / SQRT2, 0) + 'px';
             const col1 = parent.left + (parent.width - tipWidth) / 2 + 'px';
             const col2 = Math.min(parent.right + arrowSize / SQRT2, viewWidth - tipWidth) + 'px';
             positionStyle = getPlacement({ row0, row1, row2, col0, col1, col2 }, place);
-            const style = getStyle(tipWidth, tipHeight, place, arrowSize);
-            arrowStyle = style.arrowStyle;
-            contentStyle = style.contentStyle;
+            ({ arrowStyle, contentStyle } = getStyle(tipWidth, tipHeight, place, arrowSize));
         }
-    })();
+    }
+    changeCss();
     useEffect(() => {
         if (tooltipRef.current !== null && isShow) {
             const { width, height } = tooltipRef.current.getBoundingClientRect();
@@ -141,18 +142,24 @@ function Tooltip({ children, place = 'top', size = 1, width = 'max-content', arr
             }
         }
     }, []);
-    return (<div ref={tooltipRef} className='tooltip' style={Object.assign(Object.assign({}, positionStyle), { fontSize: size + 'rem', width })} onClick={(e) => {
+    return (<div ref={tooltipRef} className="tooltip" style={{
+            ...positionStyle,
+            fontSize: size + 'rem',
+            width,
+        }} onClick={(e) => {
             e.stopPropagation();
         }}>
-            {isShow &&
-            <>
-                    <div className='tooltip-content' style={Object.assign({}, contentStyle)}>
-                        &nbsp;{children}&nbsp;
-                    </div>
-                    <div className='tooltip-arrow' style={Object.assign(Object.assign({}, arrowStyle), { width: arrowSize + 'px', height: arrowSize + 'px' })}>
-                    </div>
-                </>}
-        </div>);
+      {isShow && (<>
+          <div className="tooltip-content" style={{ ...contentStyle }}>
+            &nbsp;{children}&nbsp;
+          </div>
+          <div className="tooltip-arrow" style={{
+                ...arrowStyle,
+                width: arrowSize + 'px',
+                height: arrowSize + 'px',
+            }}></div>
+        </>)}
+    </div>);
 }
 export default function TooltipWrapper(props) {
     const [showChild, setShowChild] = useState(false);

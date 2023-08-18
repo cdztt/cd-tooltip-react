@@ -1,5 +1,9 @@
+.vscode
+node_modules
 src
 js
 .eslintrc.json
+.gitignore
+gulpfile.js
 tsconfig.json
 webpack.config.js
